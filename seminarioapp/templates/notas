@@ -1,0 +1,75 @@
+ingreso paciente
+{% extends "base.html" %}
+{% load static %}
+{% block contenido %}
+    <div class="book_apointment_area">
+        <div class="container">
+            <div class="row justify-content-end">
+                <div class="col-lg-7">
+                    <div class="popup_box ">
+                        <div class="popup_inner">
+                            <h3><span>Ingreso de paciente</span></h3>
+                            <form action="/ingreso/" method="GET">
+                                <div class="col-xl-12">
+                                <p>Ingrese su rut sin puntos. Ejemplo: 11222333-4</p>
+                                <input type="text"  placeholder="Ingrese su rut" name="rut">
+                                </div>
+                                <button type="submit" class="boxed-btn3">Verificar RUT </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock contenido %}
+#########################################################################################################################
+seleccion especialidad
+{% extends "base.html" %}
+{% load static %}
+{% block contenido %}
+<div class="book_apointment_area">
+        <div class="container">
+            <div class="row justify-content-end">
+                <div class="col-lg-7">
+                    <div class="popup_box ">
+                        <div class="popup_inner">
+                            <h3><span>Seleccón de especialidad</span></h3>
+                            <form action="#" method="POST">{% csrf_token %}
+                                <div class="row">
+                                    <div class="col-xl-12" class="form-select wide" id="default-select" class="" ></div>
+                                        {% if form.error %}
+                                         <p style="color: #c82333;">Por favor revisa este campo</p>
+                                        {% endif %}
+                                        {{ form.as_table}}
+                                <button type="submit" class="boxed-btn3">Confirmar registro</button>
+                                    </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock contenido %}
+#########################################################################################################################
+def horas(request):
+    if request.GET["form"]:
+        dato = request.GET["form"]
+        esp = fecha.objects.filter(especialidad__contains=dato)
+        return render(request, "reservar.html", {"datos": esp, "query": dato})
+    else:
+        mensaje = "No ha seleccionado nignuna especialidad"
+
+    return HttpResponse(mensaje)
+#######################################################################################################################3
+    if request.method == "POST":
+        form = FormRes(request.POST)
+        if form.is_valid():
+            form.save()
+            return render(request, "gracias.html")
+    else:
+        form = FormRes()
+    return render(request, "reservar.html", {'form': form})

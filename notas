@@ -1,0 +1,58 @@
+python manage.py createsuperuser
+user Administrador1
+email
+password 12345
+modificar telefono para que sea opcional blank=True, null=True
+
+
+    {% if form.errors %}
+    <p style="color: #c82333;">Por favor revisa este campo</p>
+    {% endif %}
+RUTA DE IMAGENES PARA LA WEB:
+C:\Users\luisp\PycharmProjects\Seminario\venv\Lib\site-packages\django\contrib\admin\static\seminariowebapp\img
+
+
+
+from django.db import models
+from especialidades.models import Especilidade
+
+
+# Create your models here.
+
+class reserva(models.Model):
+    ACTIVA = '0'
+    INACTIVA = '1'
+
+    ESTADO_CHOICES = [(ACTIVA, 'Activa'), (INACTIVA, 'Inactiva'), ]
+
+    id_reserva = models.AutoField(primary_key=True)
+    rut_paciente = models.CharField(max_length=10)
+    especialidad = models.ForeignKey('especialidades.Especilidade', to_field="titulo", on_delete=models.CASCADE,
+                                     max_length=30)
+    fecha_cita = models.DateTimeField()
+    estado = models.CharField(max_length=1, choices=ESTADO_CHOICES, default=None)
+
+from django.contrib import admin
+from reserva.models import reserva
+
+
+# Register your models here.
+
+class ReservaAdmin(admin.ModelAdmin):
+    list_display = ("id_reserva", "id_registro", "especialidad", "profesional", "fecha_cita")
+
+
+admin.site.register(reserva)
+
+
+
+#############################################################################
+    if request.method == "POST":
+        form = FormRes(request.POST)
+        if form.is_valid():
+            form.save()
+            return render(request, "gracias.html")
+    else:
+        form = FormRes()
+    return render(request, "selec_esp.html", {'form': form})
+################################################################################################

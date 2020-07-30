@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load static %}
+{% block contenido %}
+    <div class="book_apointment_area">
+        <div class="container">
+            <div class="row justify-content-end">
+                <div class="col-lg-7">
+                    <div class="popup_box ">
+                        <div class="popup_inner">
+                            <h3><span>Ingreso de paciente</span></h3>
+                            <form action="" method="GET">
+                                <div class="col-xl-12">
+                                <select class="form-select wide" id="default-select" class="">
+                                    <option data-display="Por favor seleccione una esecialidad">
+                                        {% for i in lista %}
+                                            <li>
+                                                <option name="option"><strong>{{ i.titulo}}</strong></option>
+                                            </li>
+                                    {% endfor %}
+                                    </option>
+                                </select>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock contenido %}

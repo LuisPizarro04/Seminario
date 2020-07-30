@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load static %}
+{% block contenido %}
+    <div class="book_apointment_area">
+        <div class="container">
+            <div class="row justify-content-end">
+                <div class="col-lg-7">
+                    <div class="popup_box ">
+                        <div class="popup_inner">
+                            <h3><span>Reserva de citas</span></h3>
+                            <h5><span>Confirma tus datos: </span></h5>
+                        <p>Estas buscando: <strong>{{ query }}</strong></p>
+
+                                {% if datos %}
+                                    <p>Personas encontradas : {{datos|length }} personas</p>
+                                    <ul>
+                                        {% for art in datos  %}
+                                            <li>
+                                                <p>Rut paciente: </p>{{ art.rut_paciente }}
+                                                <p>Nombres: </p>{{ art.nombres }}
+                                                <p>Apellidos : </p>{{ art.apellidos }}
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                {% else %}
+                                    <p>Persona no encontrada</p>
+                                {% endif %}
+                        <p>Si sus datos son correctos por favor continúe. </p>
+                         <a href="{% url 'Seleccionar' %}" class="boxed-btn6">Continuar</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock contenido %}

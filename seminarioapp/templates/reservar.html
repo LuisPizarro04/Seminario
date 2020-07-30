@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load static %}
+{% block contenido %}
+    <div class="book_apointment_area">
+        <div class="container">
+            <div class="row justify-content-end">
+                <div class="col-lg-7">
+                    <div class="popup_box ">
+                        <div class="popup_inner">
+                            <h3><span>Reserva de citas</span></h3>
+                            <h2><span>Selección de fecha : </span></h2>
+                        <p>Estas buscando: <strong>{{ query }}</strong></p>
+                              {% if datos %}
+                                    <p>Fechas encontradas : {{datos|length }} Fechas Disponibles</p>
+                                    <form  action="/savedate/" method="GET">
+                                     <select name="date" class="form-select wide" id="default-select" class="">
+                                    <option data-display="Por favor seleccione una fecha" >
+                                        {% for art in datos  %}
+                                            <li>
+                                                <option>{{ art.fecha_cita|date:'yy-m-d h:i'}}</option>
+                                            </li>
+                                        {% endfor %}
+                                         </option>
+                                     </select>
+                                {% else %}
+                                    <p>Fechas no disponibles</p>
+                                {% endif %}
+                            <button type="submit" class="boxed-btn3">Continuar</button>
+                                    </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock contenido %}

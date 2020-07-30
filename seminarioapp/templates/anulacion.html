@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% load static %}
+{% block contenido %}
+     <div class="book_apointment_area">
+        <div class="container">
+            <div class="row justify-content-end">
+                <div class="col-lg-7">
+                    <div class="popup_box ">
+                        <div class="popup_inner">
+                            <h3><span>Anulación de reserva</span></h3>
+                            <h5><span>Confirma tus datos: </span></h5>
+                        <p>Estas buscando: <strong>{{ query }}</strong></p>
+                                {% if datos %}
+                                    <p>Reservas encontradas : {{datos|length }} reserva</p>
+                                    <ul>
+                                        {% for art in datos  %}
+                                            <li>
+                                                <p>Rut paciente: {{ art.rut_paciente }} </p>
+                                                <p>Especialidad: {{ art.especialidad }}</p>
+                                                <p>Fecha cita : {{ art.fecha_cita }}</p>
+                                                <p>Estado cita : </p>
+                                                {% if art.estado == 1 %}
+                                                <p>Inactiva</p>
+                                                    {% else %}
+                                                    <p>Activa</p>
+                                                {% endif %}
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                {% else %}
+                                    <p>Reservas no encontradas</p>
+                                {% endif %}
+                        <p>Si sus datos son correctos por favor continúe. </p>
+                        <form action="/savecancel/" method="GET">
+                            <select name="patient" class="form-select wide" id="default-select">
+                                    <option data-display="Seleccione su rut para continuar" >
+                                        {% for art in datos  %}
+                                            <li>
+                                                <option>{{ art.rut_paciente}}</option>
+                                            </li>
+                                        {% endfor %}
+                                    </option>
+                            </select>
+                            <button type="submit" class="boxed-btn3">Confirmar anulación</button>
+                        </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock contenido %}

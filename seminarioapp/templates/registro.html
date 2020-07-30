@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load static %}
+{% block contenido %}
+<div class="book_apointment_area">
+        <div class="container">
+            <div class="row justify-content-end">
+                <div class="col-lg-7">
+                    <div class="popup_box ">
+                        <div class="popup_inner">
+                            <h3><span>Registro de pacientes</span></h3>
+                            <form action="#" method="POST">{% csrf_token %}
+                                <div class="row">
+                                    <div class="col-xl-12" class="form-select wide" id="default-select" class="" ></div>
+                                        {% if form.error %}
+                                         <p style="color: #c82333;">Por favor revisa este campo</p>
+                                        {% endif %}
+
+                                        {{ form.as_table}}
+
+                                <button type="submit" class="boxed-btn3">Confirmar registro</button>
+                                    </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock contenido %}
